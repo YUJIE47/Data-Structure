@@ -1,4 +1,3 @@
-// ¸ê°T¤G¥Ò 10827101ªL»y¼ä  10827137§õ©y°a
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -40,9 +39,9 @@ struct SchoolType {
 
 class TwoThreeNode {
    public:
-    vector<SchoolType> array;         // ¦s©ñ¦h¶¡¾Ç®Õ 
-    vector<TwoThreeNode*> children;   // ¦s©ñ«ü¼Ğ([0]left [1]middle [2]right) 
-    TwoThreeNode* parent;             // «ü¦Vparent 
+    vector<SchoolType> array;         // å­˜æ”¾å¤šé–“å­¸æ ¡ 
+    vector<TwoThreeNode*> children;   // å­˜æ”¾æŒ‡æ¨™([0]left [1]middle [2]right) 
+    TwoThreeNode* parent;             // æŒ‡å‘parent 
     TwoThreeNode() { 
         array.clear();
         parent = NULL;
@@ -176,30 +175,30 @@ void Sort2(TwoThreeNode* ptr) {
 
 void TwoThree ::Split(TwoThreeNode* ptr) {
     Sort(ptr);
-    if (ptr->array.size() > 2) { // ¦³¤T­Ó¼Æ ­nsplit 
+    if (ptr->array.size() > 2) { // æœ‰ä¸‰å€‹æ•¸ è¦split 
         if (ptr->parent == NULL) {  // root grow up
             ptr->parent = new TwoThreeNode();
             root = ptr->parent;
-            ptr->parent->children.push_back(ptr);                // Âù¦V¸`ÂI 
+            ptr->parent->children.push_back(ptr);                // é›™å‘ç¯€é» 
         }  // if
 
-        ptr->parent->array.push_back(ptr->array[1]);            // ¤¤¶¡­È©¹¤W´£ 
+        ptr->parent->array.push_back(ptr->array[1]);            // ä¸­é–“å€¼å¾€ä¸Šæ 
         TwoThreeNode* rightChild = new TwoThreeNode();
         if (ptr->children.size() == 4) {
             ptr->children[2]->parent = rightChild;
             ptr->children[3]->parent = rightChild;
-            rightChild->children.push_back(ptr->children[2]);   // Âù¦V¸`ÂI  
-            rightChild->children.push_back(ptr->children[3]);   // Âù¦V¸`ÂI  
+            rightChild->children.push_back(ptr->children[2]);   // é›™å‘ç¯€é»  
+            rightChild->children.push_back(ptr->children[3]);   // é›™å‘ç¯€é»  
             ptr->children.erase(ptr->children.begin() + 3);     // erase the second element 
             ptr->children.erase(ptr->children.begin() + 2);     // erase the first element 
         }  // if
 
-        rightChild->array.push_back(ptr->array[2]);             // ³Ì¤j­Èµ¹ rightChild
+        rightChild->array.push_back(ptr->array[2]);             // æœ€å¤§å€¼çµ¦ rightChild
         ptr->array.erase(ptr->array.begin() + 2);
         ptr->array.erase(ptr->array.begin() + 1);
         rightChild->parent = ptr->parent;
-        ptr->parent->children.push_back(rightChild);            // Âù¦V¸`ÂI 
-        Sort2(ptr->parent);                                     // ±N¤U­±ªºpoint 
+        ptr->parent->children.push_back(rightChild);            // é›™å‘ç¯€é» 
+        Sort2(ptr->parent);                                     // å°‡ä¸‹é¢çš„point 
         
         Split(ptr->parent);
     }  // if
@@ -211,19 +210,19 @@ TwoThreeNode* TwoThree ::Insert( DATA& input, TwoThreeNode* ptr ) {
         ptr = new TwoThreeNode();
         SchoolType school;
         school.schools.push_back(input);
-        ptr->array.push_back(school); // ±N¸ê®Æ¦s¤J¾ğª¬µ²ºc¤¤ 
-        root = ptr; // §ó·sroot 
+        ptr->array.push_back(school); // å°‡è³‡æ–™å­˜å…¥æ¨¹ç‹€çµæ§‹ä¸­ 
+        root = ptr; // æ›´æ–°root 
         return NULL;
     }  // if
     else {
-        for (int i = 0; i < ptr->array.size(); i++) { // ÀË¬d¾Ç®Õ¬O§_¥X²{¹L 
+        for (int i = 0; i < ptr->array.size(); i++) { // æª¢æŸ¥å­¸æ ¡æ˜¯å¦å‡ºç¾é 
             if (input.schoolName == ptr->array[i].schools[0].schoolName) {
                 ptr->array[i].schools.push_back(input);
                 return NULL;
             }  // if
         }      // for check same name
 
-        if (ptr->array.size() == 1) { // ¤w¦s¤J¤@¶¡¾Ç®Õ 
+        if (ptr->array.size() == 1) { // å·²å­˜å…¥ä¸€é–“å­¸æ ¡ 
             if (ptr->children.empty()) { // is leaf 
                 SchoolType school;
                 school.schools.push_back(input);
@@ -239,7 +238,7 @@ TwoThreeNode* TwoThree ::Insert( DATA& input, TwoThreeNode* ptr ) {
                 } // else
             } // else
         } // else if
-        else if (ptr->array.size() == 2) { // ¤w¦s¤J¨â¶¡¾Ç®Õ 
+        else if (ptr->array.size() == 2) { // å·²å­˜å…¥å…©é–“å­¸æ ¡ 
             if (ptr->children.empty()) { // is leaf 
                 SchoolType school;
                 school.schools.push_back(input);
@@ -272,7 +271,7 @@ vector<DATA> TwoThree :: SearchSchool( string school ) {
 
 	while( ptr != NULL && nowheight <= height1 ) {
 
-	  for (int i = 0; i < ptr->array.size(); i++) { // ÀË¬d¾Ç®Õ
+	  for (int i = 0; i < ptr->array.size(); i++) { // æª¢æŸ¥å­¸æ ¡
         if ( school == ptr->array[i].schools[0].schoolName ) {
         	for( int j = 0; j < ptr->array[i].schools.size(); j++ ) {
         		theSchools.push_back(ptr->array[i].schools[j]) ;
@@ -285,7 +284,7 @@ vector<DATA> TwoThree :: SearchSchool( string school ) {
 	  if ( ptr->children.size() == 0 )
 	  	break ;
 	  
-	  if (ptr->array.size() == 1) { // ¤w¦s¤J¤@¶¡¾Ç®Õ 
+	  if (ptr->array.size() == 1) { // å·²å­˜å…¥ä¸€é–“å­¸æ ¡ 
         if ( school > ptr->array[0].schools[0].schoolName) { // walk right
             ptr = ptr->children[1]; 
         }  // if
@@ -293,7 +292,7 @@ vector<DATA> TwoThree :: SearchSchool( string school ) {
             ptr = ptr->children[0]; 
         } // else
       } // if
-      else if (ptr->array.size() == 2) { // ¤w¦s¤J¨â¶¡¾Ç®Õ 
+      else if (ptr->array.size() == 2) { // å·²å­˜å…¥å…©é–“å­¸æ ¡ 
         if (school > ptr->array[1].schools[0].schoolName) { // walk right
             ptr = ptr->children[2] ;
         }  // if
@@ -638,7 +637,7 @@ int main() {
 			twoThreeTree.root = NULL ;
             for (int i = 0; i < list.size(); i++) {
                 ptr = twoThreeTree.Insert(list[i], twoThreeTree.getroot());
-                if (ptr != NULL) { // ¾Ç®Õ¨S¥X²{¹L ¤w¦s¤J¾ğ¤¤ 
+                if (ptr != NULL) { // å­¸æ ¡æ²’å‡ºç¾é å·²å­˜å…¥æ¨¹ä¸­ 
                     twoThreeTree.Split(ptr);
                 }  // if
             } //  for
